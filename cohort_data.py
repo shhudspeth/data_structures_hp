@@ -14,21 +14,24 @@ def all_houses(filename):
     Return:
       - set[str]: a set of strings
     """
+    
     house_name = []
+    # open file
     file = open(filename)
+    # loop through lines
     for line in file:
       line = line.split("|")
       # add name if name exists in line
       if len(line[2]) > 0:
-          house_name.append(line[2])
+        house_name.append(line[2])
       
     houses = set(house_name)
 
-    # TODO: replace this with your code
-
     return houses
 
-
+# Harry|Potter|Gryffindor|McGonagall|Fall 2015
+# 0     | 1   | 2         | 3       | 4
+# firstn| last| housename | Advisor | cohort
 def students_by_cohort(filename, cohort='All'):
     """Return a list of students' full names by cohort.
 
@@ -60,6 +63,22 @@ def students_by_cohort(filename, cohort='All'):
     students = []
 
     # TODO: replace this with your code
+    file = open(filename)
+    
+    for line in file:
+      line = line.split("|")
+      # if cohort != "All":
+       # print(len(cohort), len(line[4]), cohort, line[4])
+      if cohort == "All":
+        if len(line[2]) > 0:
+            students.append(str(line[0]+" "+ line[1]))
+      
+      elif line[4].strip() == cohort:
+        # print("cohort is ", cohort)
+        if len(line[2]) > 0:
+          students.append(str(line[0]+" "+ line[1]))
+      
+  
 
     return sorted(students)
 
