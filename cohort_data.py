@@ -278,7 +278,33 @@ def get_housemates_for(filename, name):
     """
 
     # TODO: replace this with your code
-
+    house_mates = []
+    list_of_students = []
+    file_ = open(filename)
+    # find cohort for the given name in function
+    # list_of_all_houses = all_names_by_house(filename)
+    # desired_cohort = get_cohort_for(filename, name)
+    # loop over filenames
+    for line in file_:
+      # split entries into a list
+      line = line.split("|")
+      first_name = line[0].strip() + " "+ line[1].strip()
+      # print(first_name, name, len(first_name), len(name))
+      if first_name == name:
+        house_of_person = line[2]
+        needed_cohort = line[4].strip()
+        # print(house_of_person)
+        break
+    
+    tuples = all_data(filename)
+    for student in tuples:
+      if student[3] == needed_cohort and student[1] == house_of_person:
+        if student[0] != name:
+          house_mates.append(student[0])
+      
+    
+    
+    return(set(house_mates))
 
 ##############################################################################
 # END OF MAIN EXERCISE.  Yay!  You did it! You Rock!
