@@ -29,9 +29,7 @@ def all_houses(filename):
 
     return houses
 
-# Harry|Potter|Gryffindor|McGonagall|Fall 2015
-# 0     | 1   | 2         | 3       | 4
-# firstn| last| housename | Advisor | cohort
+
 def students_by_cohort(filename, cohort='All'):
     """Return a list of students' full names by cohort.
 
@@ -59,7 +57,7 @@ def students_by_cohort(filename, cohort='All'):
     Return:
       - list[list]: a list of lists
     """
-
+   
     students = []
 
     # TODO: replace this with your code
@@ -113,6 +111,11 @@ def all_names_by_house(filename):
     Return:
       - list[list]: a list of lists
     """
+    # Harry|Potter|Gryffindor|McGonagall|Fall 2015
+    # 0     | 1   | 2         | 3       | 4
+    # firstn| last| housename | Advisor | cohort
+    # Friendly|Friar|         |         |G
+    # Filius|Flitwick|        |         |I
 
     dumbledores_army = []
     gryffindor = []
@@ -123,8 +126,37 @@ def all_names_by_house(filename):
     instructors = []
 
     # TODO: replace this with your code
+    file = open(filename)
 
-    return []
+    for line in file:
+      line = line.split("|")
+
+      if line[2].strip() == "Dumbledore's Army":
+        dumbledores_army.append(str(line[0]+" "+ line[1]))
+
+      elif line[2].strip() == "Gryffindor":
+        gryffindor.append(str(line[0]+" "+ line[1]))
+      
+      elif line[2].strip() == "Ravenclaw":
+        ravenclaw.append(str(line[0]+" "+ line[1]))
+      
+      elif line[2].strip() == "Slytherin":
+        slytherin.append(str(line[0]+" "+ line[1]))
+      
+      elif line[2].strip() == "Hufflepuff":
+        hufflepuff.append(str(line[0]+" "+ line[1]))
+
+      elif len(line[2]) == 0:
+        if line[4].strip() == "G":
+          ghosts.append(str(line[0]+" "+ line[1]))
+
+        elif line[4].strip() == "I":
+          instructors.append(str(line[0]+" "+ line[1]))
+
+      
+
+    return [sorted(dumbledores_army), sorted(gryffindor), sorted(hufflepuff), sorted(ravenclaw), 
+            sorted(slytherin), sorted(ghosts), sorted(instructors)]
 
 
 def all_data(filename):
