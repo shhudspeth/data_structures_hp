@@ -177,10 +177,20 @@ def all_data(filename):
     Return:
       - list[tuple]: a list of tuples
     """
+     # Harry|Potter|Gryffindor|McGonagall|Fall 2015
+    # 0     | 1   | 2         | 3       | 4
+    # firstn| last| housename | Advisor | cohort
+    # Friendly|Friar|         |         |G
+    # Filius|Flitwick|        |         |I
 
     all_data = []
 
     # TODO: replace this with your code
+    file = open(filename)
+    # loop through file and append
+    for line in file:
+      line = line.split("|")
+      all_data.append((str(line[0] + " "+line[1]), line[2], line[3], line[4].strip()))
 
     return all_data
 
@@ -206,7 +216,19 @@ def get_cohort_for(filename, name):
       - str: the person's cohort or None
     """
 
-    # TODO: replace this with your code
+    # open file
+    file = open(filename)
+    # loop over filenames
+    for line in file:
+      line = line.split("|") 
+      # makes the first name string
+      first_name = line[0]+ " "+ line[1]
+      # print(first_name, name)
+      # check if line is the desired name
+      if name == first_name:
+        return line[4].strip()
+    
+    return None
 
 
 def find_duped_last_names(filename):
@@ -224,6 +246,23 @@ def find_duped_last_names(filename):
     """
 
     # TODO: replace this with your code
+    last_name = []
+    duplicates = []
+    file_ = open(filename)
+    # loop over filenames
+    for line in file_:
+      # split entries into a list
+      line = line.split("|")
+      # if the last name is already in last_name, add to duplicates
+      if line[1].strip() in last_name:
+          duplicates.append(line[1].strip())
+      
+      last_name.append(line[1].strip())
+
+    return set(duplicates)
+
+    
+
 
 
 def get_housemates_for(filename, name):
